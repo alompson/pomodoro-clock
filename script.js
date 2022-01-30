@@ -1,5 +1,5 @@
-let pomodoroTime = 25;
-let shortBreakTime = 5;
+let pomodoroTime = 1;
+let shortBreakTime = 1;
 let longBreakTime = 10;
 let sessionCounter = 1;
 let startPauseControl = 0 //to control when to start and when to pause
@@ -9,9 +9,10 @@ let min = pomodoroTime;
 let sec = 0;
 let t;
 let mode = {
-    name: "",
+    title: "",
+    code: "", //can be "pomodoro", "short break" or "long break"
     time: pomodoroTime
-}; //can be "pomodoro", "short break" or "long break"
+};
 
 let countdownDisplay = document.getElementById("countdown");
 let modeDisplay = document.getElementById("mode");
@@ -42,7 +43,7 @@ function endTimer(){
     //every 4th break session, there is a long pause instead of a short pause
     startLongBreak();
     }else {
-        if(mode == "Pomodoro") {
+        if(mode.code == "pomodoro") {
         //a working session just ended
             startShortBreak();
         }else{
@@ -59,28 +60,33 @@ function displayTime() {
 }
 
 function countdown() {
-    min = mode.time;
-    t = setInterval(tick, 1000);
+    t = setInterval(tick, 100);
 }
 
 function startPomodoro() {
-    mode.name = "Working Session (be focused!)";
-    modeDisplay.innerHTML = mode.name;
+    mode.title = "Working Session (be focused!)";
+    mode.code = "pomodoro";
+    modeDisplay.innerHTML = mode.title;
     mode.time = pomodoroTime;
+    min = mode.time;
     countdown();
 }
 
 function startShortBreak() {
-    mode.name = "Short Break (relax my man)";
-    modeDisplay.innerHTML = mode.name;
+    mode.title = "Short Break (relax my man)";
+    mode.code = "short-break";
+    modeDisplay.innerHTML = mode.title;
     mode.time = shortBreakTime;
+    min = mode.time;
     countdown();
 }
 
 function startLongBreak() {
-    mode.name = "Long Break (ultimate relax)";
-    modeDisplay.innerHTML = mode.name;
+    mode.title = "Long Break (ultimate relax)";
+    mode.code = "long-break";
+    modeDisplay.innerHTML = mode.title;
     mode.time = longBreakTime;
+    min = mode.time;
     countdown();
 }
 
