@@ -1,8 +1,6 @@
 body {
     display: grid;
     place-items: center;
+    text-align: center;
 }
 
-.clock {
-    background: palevioletred;
-}
